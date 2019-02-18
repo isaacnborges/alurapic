@@ -1,0 +1,7 @@
+instalar API
+npm install sqlite3
+npm install
+
+
+rodar modo desenvolvimento
+ng serve --disable-host-check
