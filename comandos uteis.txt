@@ -1,3 +1,5 @@
+quotestyle - aspas simples para JS e TS
+
 instalar API
 npm install sqlite3
 npm install
@@ -5,3 +7,6 @@ npm install
 
 rodar modo desenvolvimento
 ng serve --disable-host-check
+
+rodar api
+npm start
