@@ -1,12 +1,15 @@
-quotestyle - aspas simples para JS e TS
+--quotestyle - aspas simples para JS e TS
 
 instalar API
 npm install sqlite3
 npm install
 
 
-rodar modo desenvolvimento
+--rodar modo desenvolvimento
 ng serve --disable-host-check
 
-rodar api
+--rodar api
 npm start
+
+--buidar projeto para producao
+ng build --prod

@@ -5,15 +5,19 @@ import { PhotoListComponent } from './photos/photo-list/photo-list.component';
 import { PhotoFormComponent } from './photos/photo-form/photo-form.component';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { PhotoListResolver } from './photos/photo-list/photo-list.resolver';
-import { SignInComponent } from './home/signin/signin.component';
 
 const routes: Routes = [
     {
         path: '',
-        component: SignInComponent
+        pathMatch: 'full',
+        redirectTo: 'home'
     },
     {
-        path: 'user/:userName', 
+        path: 'home',
+        loadChildren: './home/home.module#HomeModule'
+    },
+    {
+        path: 'user/:userName',
         component: PhotoListComponent,
         resolve: {
             photos: PhotoListResolver
