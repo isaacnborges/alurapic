@@ -13,6 +13,7 @@ export class UserService {
   private userName: string;
 
   constructor(private tokenService: TokenService) {
+    // tslint:disable-next-line:no-unused-expression
     this.tokenService.hasToken() && this.decodeAndNotify();
   }
 
