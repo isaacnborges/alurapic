@@ -1,11 +1,13 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+
 import { lowerCaseValidator } from 'src/app/shared/validators/lower-case.validator';
 import { UserNotTakenValidatorService } from './user-not-taken.validator.service';
 import { SignUpService } from './signup.service';
-import { Router } from '@angular/router';
 import { NewUser } from './new-user';
 import { PlatformDetectorService } from 'src/app/core/platform-detector/platform.detector.service';
+import { userNamePassword } from './username-password.validator';
 
 @Component({
     templateUrl: './signup.component.html',
@@ -55,6 +57,8 @@ export class SignUpComponent implements OnInit {
                     Validators.maxLength(14)
                 ]
             ],
+        }, {
+            validator: userNamePassword
         });
 
         // tslint:disable-next-line: no-unused-expression
@@ -62,12 +66,14 @@ export class SignUpComponent implements OnInit {
     }
 
     signUp() {
-        const newUser = this.signupForm.getRawValue() as NewUser;
-        this.signUpService
+        if (this.signupForm.valid && !this.signupForm.pending) {
+            const newUser = this.signupForm.getRawValue() as NewUser;
+            this.signUpService
             .signUp(newUser)
             .subscribe(
                 () => this.router.navigate(['']),
                 err => console.log(err)
-            );
+                );
+        }
     }
 }

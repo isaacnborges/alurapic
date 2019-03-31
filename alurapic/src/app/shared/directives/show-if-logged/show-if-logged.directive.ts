@@ -1,4 +1,4 @@
-import { Directive, Input, ElementRef, Renderer2, OnInit } from '@angular/core';
+import { Directive, ElementRef, Renderer2, OnInit } from '@angular/core';
 import { UserService } from 'src/app/core/user/user.service';
 
 @Directive({
@@ -6,14 +6,24 @@ import { UserService } from 'src/app/core/user/user.service';
 })
 export class ShowIfLoggedDirective implements OnInit {
 
+    currentDisplay: string;
+
     constructor(
         private element: ElementRef<any>,
-        private rederer: Renderer2,
+        private renderer: Renderer2,
         private userService: UserService
     ) {}
 
     ngOnInit() {
-        // tslint:disable-next-line:no-unused-expression
-        !this.userService.isLogged() && this.rederer.setStyle(this.element.nativeElement, 'display', 'none');
+        this.currentDisplay = getComputedStyle(this.element.nativeElement).display;
+
+        this.userService.getUser().subscribe(user => {
+            if (user) {
+                this.renderer.setStyle(this.element.nativeElement, 'display', this.currentDisplay);
+            } else {
+                this.currentDisplay = getComputedStyle(this.element.nativeElement).display;
+                this.renderer.setStyle(this.element.nativeElement, 'display', 'none');
+            }
+        });
     }
 }

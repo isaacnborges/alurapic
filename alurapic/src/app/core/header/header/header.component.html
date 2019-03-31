@@ -1,12 +1,23 @@
 <header class="sticky-top">
     <nav class="navbar navbar-light bg-white">
-        <a class="navbar-brand">ALURAPIC</a>
+        <a class="navbar-brand">
+            <i tabindex="0" (keyup.space)="menu.toggle()" class="fa fa-bars mr-2" (click)="menu.toggle()"></i>
+            ALURAPIC
+        </a>
+
+        <app-menu #menu>
+            <ul class="list-unstyled">
+                <li>
+                    <a appShowIfLogged [routerLink]="['p', 'add']">Upload</a>
+                </li>
+            </ul>
+        </app-menu>
 
         <div *ngIf="(user$ | async) as user; else login">
             <i class="fa fa-user-circle mr-1"></i>
             <a class="mr-1">{{ user.name }}</a>
 
-            <!-- <a (click)="logout()">(Logout)</a> -->
+            <!-- <a (click)="logout()">(Logout)</a> --> 
             <i class="fa fa-sign-out" aria-hidden="true" (click)="logout()"></i>
         </div>
 
@@ -18,6 +29,7 @@
     </nav>
     
     <div class="fixed-top">
+        <app-loading></app-loading>
         <app-alert></app-alert>
     </div>
 </header>
